@@ -9,27 +9,22 @@ function getdata() {
 }
 
 function descargarArchivo(contenidoEnBlob, nombreArchivo) {
-    try {
-        var reader = new FileReader();
-        reader.onload = function(event) {
-            var save = document.createElement('a');
-            save.href = event.target.result;
-            save.target = '_blank';
-            save.download = nombreArchivo || 'credito.dat';
-            var clicEvent = new MouseEvent('click', {
-                'view': window,
-                'bubbles': true,
-                'cancelable': true
-            });
-            save.dispatchEvent(clicEvent);
-            (window.URL || window.webkitURL).revokeObjectURL(save.href);
-        };
-        reader.readAsDataURL(contenidoEnBlob);
-    } catch (error) {
-        console.log("Fallo...");
-    }
+    var reader = new FileReader();
+    reader.onload = function(event) {
+        var save = document.createElement('a');
+        save.href = event.target.result;
+        save.target = '_blank';
+        save.download = nombreArchivo || 'credito.dat';
+        var clicEvent = new MouseEvent('click', {
+            'view': window,
+            'bubbles': true,
+            'cancelable': true
+        });
+        save.dispatchEvent(clicEvent);
+        (window.URL || window.webkitURL).revokeObjectURL(save.href);
+    };
+    reader.readAsDataURL(contenidoEnBlob);
 }
-
 
 function generartxt(datos) {
     var texto = [];
@@ -78,4 +73,4 @@ window.onload = function() {
         descargarArchivo(generartxt(datos), 'archivo.txt');
 
     }, false);
-}
+};
